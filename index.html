@@ -1,0 +1,2345 @@
+<!DOCTYPE html>
+<html lang="vi">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nuôi Tôi 🍜</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Quicksand:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #d32f2f;
+            --secondary: #ffc107;
+            --accent: #ffd700;
+            --dark: #3e2723;
+            --light: #fff8e1;
+            --gradient: linear-gradient(135deg, #d32f2f 0%, #b71c1c 100%);
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            background: #800000;
+            min-height: 100vh;
+            overflow-x: hidden;
+            color: white;
+            position: relative;
+        }
+
+        /* Festive Background Elements */
+        .festive-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: hidden;
+        }
+
+        /* Top Flowers */
+        .flower-top {
+            position: absolute;
+            top: -20px;
+            width: 250px;
+            z-index: 2;
+        }
+
+        .flower-left {
+            left: -50px;
+            transform: rotate(-10deg);
+        }
+
+        .flower-right {
+            right: -50px;
+            transform: scaleX(-1) rotate(-10deg);
+        }
+
+        .flower-center {
+            left: 50%;
+            transform: translateX(-50%);
+            width: 400px;
+            top: -50px;
+        }
+
+        /* Hanging Lanterns */
+        .lantern-container {
+            position: absolute;
+            top: 0;
+            width: 100%;
+            display: flex;
+            justify-content: space-around;
+            padding: 0 10%;
+            z-index: 1;
+        }
+
+        .lantern {
+            width: 120px;
+            animation: swing 3s ease-in-out infinite alternate;
+            transform-origin: top center;
+        }
+
+        /* Background Floral Branch */
+        .branch-bg {
+            position: absolute;
+            top: 20%;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 90%;
+            max-width: 600px;
+            opacity: 0.8;
+            z-index: 0;
+        }
+
+
+        @keyframes swing {
+            from {
+                transform: rotate(-5deg);
+            }
+
+            to {
+                transform: rotate(5deg);
+            }
+        }
+
+        /* Falling Effects */
+        .falling-element {
+            position: fixed;
+            top: -100px;
+            pointer-events: none;
+            z-index: 5;
+            animation: fall linear forwards;
+        }
+
+
+        .lixi-icon {
+            font-size: 2rem;
+            filter: drop-shadow(2px 2px 5px rgba(0, 0, 0, 0.2));
+        }
+
+        @keyframes fall {
+            0% {
+                transform: translateY(0) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 1;
+            }
+
+            90% {
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(110vh) translateX(var(--drift)) rotate(var(--rotation));
+                opacity: 0;
+            }
+        }
+
+        /* Profile & Content Cards Overhaul */
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+            margin-top: 30px;
+            /* Space for lanterns/flowers */
+        }
+
+        .avatar-card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 20px;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+            width: 180px;
+            text-align: center;
+        }
+
+        .avatar-img {
+            width: 140px;
+            height: 140px;
+            border-radius: 15px;
+            object-fit: cover;
+        }
+
+        .content-card {
+            background: rgba(245, 222, 179, 0.85);
+            /* Light yellow glass */
+            backdrop-filter: blur(10px);
+            border-radius: 30px;
+            padding: 20px 30px 30px;
+            width: 90%;
+            max-width: 450px;
+            color: #1a1a1a;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            font-size: 1.1rem;
+            line-height: 1.4;
+            font-style: italic;
+            font-weight: 500;
+            border: 1px solid rgba(255, 215, 0, 0.3);
+        }
+
+        .card-toolbar {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(26, 26, 26, 0.1);
+        }
+
+        .toolbar-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .dot-red {
+            background: #ff5f56;
+        }
+
+        .dot-yellow {
+            background: #ffbd2e;
+        }
+
+        .dot-green {
+            background: #27c93f;
+        }
+
+        .content-card ul {
+            list-style: none;
+            margin-top: 10px;
+        }
+
+        .content-card li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 5px;
+        }
+
+        .content-card li::before {
+            content: '•';
+            position: absolute;
+            left: 0;
+            color: #1a1a1a;
+        }
+
+        .lixi-text {
+            text-align: center;
+            margin: 20px 0;
+            font-style: italic;
+            font-weight: 500;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Lì Xì Button */
+        .lixi-footer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .envelope-img {
+            width: 50px;
+        }
+
+        .lion-head-img {
+            width: 80px;
+        }
+
+        .lixi-btn {
+            background: #5d2b2b;
+            color: white;
+            padding: 12px 40px;
+            border-radius: 25px;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.2s;
+        }
+
+        .lixi-btn:hover {
+            transform: scale(1.05);
+        }
+
+        /* Header */
+        .header {
+            text-align: center;
+            padding: 40px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .logo {
+            font-size: 4rem;
+            margin-bottom: 10px;
+            animation: bounce 2s infinite;
+        }
+
+        @keyframes bounce {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: white;
+            text-shadow: 3px 3px 0 var(--primary), 6px 6px 0 rgba(0, 0, 0, 0.1);
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            color: rgba(255, 255, 255, 0.9);
+            font-weight: 500;
+        }
+
+        .strike {
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        /* Main container */
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Profile card */
+        .profile-card {
+            background: var(--glass);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .profile-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(135deg, rgba(211, 47, 47, 0.5) 0%, rgba(183, 28, 28, 0.5) 100%);
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            margin: 0 auto 20px;
+            z-index: 1;
+        }
+
+        .avatar {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            border: 5px solid white;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            object-fit: cover;
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 4rem;
+        }
+
+        .status-badge {
+            position: absolute;
+            bottom: 5px;
+            right: 5px;
+            background: #00b894;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            border: 3px solid white;
+        }
+
+        .profile-name {
+            font-size: 2rem;
+            font-weight: 700;
+            color: white;
+            text-align: center;
+            margin-bottom: 5px;
+        }
+
+        .profile-tagline {
+            text-align: center;
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 1.1rem;
+            margin-bottom: 20px;
+        }
+
+        .stats {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            text-align: center;
+        }
+
+        .stat-number {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+        }
+
+        .stat-label {
+            color: #636e72;
+            font-size: 0.9rem;
+        }
+
+        /* Story section */
+        .story-section {
+            background: #f8f9fa;
+            border-radius: 20px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+
+        .story-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .story-content {
+            color: #636e72;
+            line-height: 1.8;
+            font-size: 1rem;
+        }
+
+        .story-content p {
+            margin-bottom: 10px;
+        }
+
+        .highlight {
+            background: linear-gradient(180deg, transparent 60%, var(--accent) 60%);
+            padding: 0 5px;
+            font-weight: 600;
+        }
+
+        /* Goals */
+        .goals-section {
+            margin: 30px 0;
+        }
+
+        .goal-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 15px;
+            margin-bottom: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s;
+        }
+
+        .goal-item:hover {
+            transform: translateX(10px);
+        }
+
+        .goal-icon {
+            font-size: 2rem;
+        }
+
+        .goal-text {
+            flex: 1;
+        }
+
+        .goal-title {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .goal-desc {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        /* Donation options */
+        .donation-section {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(255, 215, 0, 0.2);
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 40px;
+            margin-top: 30px;
+        }
+
+        .section-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: #ffd700;
+            /* Gold title */
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .donation-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .donation-card {
+            background: rgba(255, 255, 255, 0.05);
+            border: 2px solid rgba(255, 215, 0, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            color: white;
+        }
+
+        .donation-card:hover {
+            background: rgba(255, 215, 0, 0.1);
+            transform: translateY(-5px);
+        }
+
+        .donation-card.selected {
+            border-color: #ffd700;
+            background: rgba(255, 215, 0, 0.2);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.4);
+        }
+
+        .donation-amount {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: #ffd700;
+        }
+
+        .donation-desc {
+            font-size: 0.9rem;
+            color: rgba(255, 255, 255, 0.7);
+            margin-top: 5px;
+        }
+
+        .currency {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: white;
+        }
+
+        /* Donate button */
+        .donate-btn {
+            width: 100%;
+            padding: 20px;
+            background: var(--gradient);
+            border: none;
+            border-radius: 20px;
+            color: white;
+            font-size: 1.5rem;
+            font-weight: 700;
+            font-family: inherit;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            animation: donatePulse 2s ease-in-out infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .donate-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.3);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .donate-btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .donate-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(255, 107, 107, 0.5);
+            animation: donatePulse 1s ease-in-out infinite;
+        }
+
+        .donate-btn:active {
+            transform: translateY(0);
+        }
+
+        .donate-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            animation: none;
+        }
+
+        @keyframes donatePulse {
+            0% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            }
+
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 15px 40px rgba(255, 107, 107, 0.6), 0 0 0 10px rgba(255, 107, 107, 0.1);
+            }
+
+            100% {
+                transform: scale(1);
+                box-shadow: 0 10px 30px rgba(255, 107, 107, 0.4);
+            }
+        }
+
+        /* Recent donations */
+        .recent-donations {
+            background: white;
+            border-radius: 30px;
+            padding: 40px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin-bottom: 30px;
+        }
+
+        .donation-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .donation-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 15px;
+            border-bottom: 1px solid #f0f0f0;
+            animation: slideIn 0.5s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        .donation-item:last-child {
+            border-bottom: none;
+        }
+
+        .donor-avatar {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: var(--gradient);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .donor-info {
+            flex: 1;
+        }
+
+        .donor-name {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .donor-message {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        .donor-amount {
+            font-weight: 700;
+            color: var(--primary);
+            font-size: 1.1rem;
+        }
+
+        .donor-time {
+            font-size: 0.8rem;
+            color: #b2bec3;
+        }
+
+        /* Footer */
+        .footer {
+            text-align: center;
+            padding: 60px 20px;
+            color: rgba(255, 255, 255, 1);
+            position: relative;
+            z-index: 10;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .footer a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        .disclaimer {
+            margin-top: 20px;
+            font-size: 0.95rem;
+            opacity: 0.8;
+            font-weight: 500;
+        }
+
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 20px 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transform: translateX(1000px);
+            transition: transform 0.5s;
+            z-index: 1000;
+        }
+
+        .toast.show {
+            transform: translateX(0);
+        }
+
+        .toast-icon {
+            font-size: 2rem;
+        }
+
+        .toast-message {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        /* Progress bar */
+        .progress-section {
+            margin: 30px 0;
+        }
+
+        .progress-header {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .progress-label {
+            font-weight: 600;
+            color: var(--dark);
+        }
+
+        .progress-value {
+            color: var(--primary);
+            font-weight: 700;
+        }
+
+        .progress-bar {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: var(--gradient);
+            border-radius: 10px;
+            transition: width 1s ease;
+            position: relative;
+        }
+
+        .progress-fill::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            animation: shimmer 2s infinite;
+        }
+
+        @keyframes shimmer {
+            0% {
+                transform: translateX(-100%);
+            }
+
+            100% {
+                transform: translateX(100%);
+            }
+        }
+
+        .check {
+            color: #00b894;
+            font-size: 1.5rem;
+        }
+
+        .cross {
+            color: #ff7675;
+            font-size: 1.5rem;
+        }
+
+        /* Loading spinner */
+        .spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, 0.3);
+            border-radius: 50%;
+            border-top-color: white;
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .title {
+                font-size: 2.5rem;
+            }
+
+            .subtitle {
+                font-size: 1rem;
+            }
+
+            .profile-card,
+            .donation-section,
+            .recent-donations,
+            .compare-section {
+                padding: 25px;
+                border-radius: 20px;
+            }
+
+            .stats {
+                gap: 20px;
+            }
+
+            .donation-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .donation-card {
+                padding: 15px;
+            }
+
+            .donation-amount {
+                font-size: 1.2rem;
+            }
+
+            .donate-btn {
+                font-size: 1.2rem;
+                padding: 15px;
+            }
+
+            .donation-emoji {
+                display: none;
+            }
+
+            .toast {
+                left: 20px;
+                right: 20px;
+                bottom: 20px;
+            }
+        }
+
+
+        /* Troll badge */
+        .troll-badge {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: var(--accent);
+            color: var(--dark);
+            padding: 10px 20px;
+            border-radius: 30px;
+            font-weight: 700;
+            font-size: 0.9rem;
+            z-index: 100;
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+        }
+
+        /* Payment method selector */
+        .payment-method-selector {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            background: #f8f9fa;
+            padding: 5px;
+            border-radius: 15px;
+        }
+
+        .payment-method-btn {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 12px;
+            background: transparent;
+            font-family: inherit;
+            font-size: 1rem;
+            font-weight: 600;
+            color: #636e72;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+
+        .payment-method-btn:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .payment-method-btn.active {
+            background: white;
+            color: var(--primary);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-method-btn .emoji {
+            font-size: 1.3rem;
+        }
+
+        /* Bank info section */
+        .bank-info-section {
+            display: none;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(8px);
+            border-radius: 20px;
+            padding: 30px;
+            margin-bottom: 30px;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+        }
+
+        .bank-info-section.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        @keyframes slideDown {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .bank-info-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 20px;
+            text-align: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        .bank-info-item {
+            background: white;
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+        }
+
+        .bank-info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .bank-info-label {
+            font-weight: 600;
+            color: #636e72;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .bank-info-value {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1.1rem;
+            word-break: break-all;
+        }
+
+        .bank-info-copy-btn {
+            background: var(--gradient);
+            border: none;
+            border-radius: 10px;
+            padding: 8px 15px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            white-space: nowrap;
+            margin-left: 15px;
+        }
+
+        .bank-info-copy-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(255, 107, 107, 0.3);
+        }
+
+        .bank-info-copy-btn:active {
+            transform: translateY(0);
+        }
+
+        .bank-info-row {
+            display: flex;
+            align-items: center;
+            flex: 1;
+        }
+
+        .bank-info-content {
+            flex: 1;
+        }
+
+        @media (max-width: 600px) {
+            .payment-method-btn {
+                font-size: 0.85rem;
+                padding: 12px 15px;
+            }
+
+            .bank-info-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .bank-info-copy-btn {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+
+            .bank-info-row {
+                width: 100%;
+            }
+        }
+
+        /* Payment Method Modal */
+        .payment-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .payment-modal.show {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        .payment-modal-content {
+            background: white;
+            border-radius: 30px;
+            padding: 25px;
+            max-width: 450px;
+            width: 95%;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: slideUp 0.3s ease;
+            position: relative;
+        }
+
+        @keyframes slideUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .payment-modal-header {
+            text-align: center;
+            margin-bottom: 20px;
+            /* Reduced from 30px */
+        }
+
+        .payment-modal-title {
+            font-size: 1.5rem;
+            /* Reduced from 1.8rem */
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+            /* Reduced from 10px */
+        }
+
+        .payment-modal-amount {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .payment-modal-options {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .payment-modal-option {
+            padding: 20px;
+            border: 3px solid #f0f0f0;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .payment-modal-option:hover {
+            border-color: var(--primary);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 20px rgba(255, 107, 107, 0.2);
+        }
+
+        .payment-modal-option-icon {
+            font-size: 2.5rem;
+        }
+
+        .payment-modal-option-content {
+            flex: 1;
+        }
+
+        .payment-modal-option-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--dark);
+            margin-bottom: 5px;
+        }
+
+        .payment-modal-option-desc {
+            font-size: 0.9rem;
+            color: #636e72;
+        }
+
+        .payment-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: #f0f0f0;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .payment-modal-close:hover {
+            background: var(--primary);
+            color: white;
+        }
+
+        .payment-modal-bank-info {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 25px;
+            margin-top: 15px;
+            border: 1px solid #ffd700;
+            display: none;
+            box-shadow: inset 0 0 10px rgba(255, 215, 0, 0.1);
+        }
+
+        .payment-modal-bank-info.show {
+            display: block;
+            animation: slideDown 0.3s ease;
+        }
+
+        .qr-container {
+            text-align: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            background: #fff;
+            border-radius: 12px;
+            border: 1px solid #eee;
+        }
+
+        .qr-image {
+            width: 100%;
+            max-width: 160px;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        }
+
+        .payment-modal-bank-item {
+            background: white;
+            border-radius: 10px;
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .payment-modal-bank-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .payment-modal-bank-label {
+            font-weight: 600;
+            color: #636e72;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .payment-modal-bank-value {
+            font-weight: 700;
+            color: var(--dark);
+            font-size: 1rem;
+            word-break: break-all;
+        }
+
+        .payment-modal-bank-copy {
+            background: var(--gradient);
+            border: none;
+            border-radius: 8px;
+            padding: 6px 12px;
+            color: white;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .payment-modal-content {
+                padding: 30px 20px;
+            }
+
+            .payment-modal-title {
+                font-size: 1.5rem;
+            }
+
+            .payment-modal-option {
+                padding: 15px;
+            }
+
+            .payment-modal-option-icon {
+                font-size: 2rem;
+            }
+
+            .payment-modal-bank-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .payment-modal-bank-copy {
+                width: 100%;
+                margin-left: 0;
+                margin-top: 10px;
+            }
+        }
+
+        /* Input fields */
+        .input-group {
+            margin-bottom: 15px;
+            text-align: left;
+        }
+
+        .input-label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--dark);
+            font-size: 0.95rem;
+        }
+
+        .input-field {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: all 0.3s;
+            background: #fdfdfd;
+        }
+
+        .input-field:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(255, 107, 107, 0.1);
+            background: white;
+        }
+
+        textarea.input-field {
+            resize: vertical;
+            min-height: 80px;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Festive Background Elements -->
+    <div class="festive-bg">
+        <img src="flower_red.webp" class="flower-top flower-center">
+        <div class="lantern-container" style="justify-content: space-between; padding: 0 50px;">
+            <img src="lantern.webp" class="lantern">
+            <img src="lantern.webp" class="lantern">
+        </div>
+
+        <img src="branch_blossom.webp" class="branch-bg">
+
+    </div>
+
+    <!-- Floating emojis - Rendered by JS -->
+    <div id="floatingEmojisContainer"></div>
+
+
+    <div class="container">
+        <div class="profile-section">
+            <div class="avatar-card" id="avatarContent">
+                <img src="avatar.png" class="avatar-img" alt="Avatar">
+            </div>
+
+            <div class="content-card">
+                <div class="card-toolbar">
+                    <div class="toolbar-dot dot-red"></div>
+                    <div class="toolbar-dot dot-yellow"></div>
+                    <div class="toolbar-dot dot-green"></div>
+                </div>
+                <div id="storyContent"></div>
+            </div>
+
+            <p class="lixi-text">Năm mới 2026 LÌXÌ tôi đi</p>
+
+            <div class="lixi-footer">
+                <!-- Assuming there are red envelope icons or similar, using lion head as main icon -->
+                <img src="red_envelopes.webp" style="width: 50px; transform: rotate(30deg);" alt="">
+                <!-- Placeholder for small ornament -->
+                <button class="lixi-btn"
+                    onclick="document.querySelector('.donation-section').scrollIntoView({behavior: 'smooth'})">Lì
+                    Xì</button>
+                <img src="lion_head.webp" class="lion-head-img" alt="Lion Head">
+            </div>
+        </div>
+
+        <!-- Donation Section -->
+        <div class="donation-section">
+            <h2 class="section-title" id="donateSectionTitle"></h2>
+            <div class="donation-grid" id="donationGrid"></div>
+            <div id="customAmountContainer" style="display: none; margin-bottom: 20px;">
+                <div class="input-group">
+                    <label class="input-label" style="color: #ffd700;">Nhập số tiền bạn muốn lì xì (VNĐ)</label>
+                    <input type="number" id="customAmountInput" class="input-field" placeholder="Ví dụ: 99000"
+                        min="1000" step="1000">
+                </div>
+            </div>
+            <button class="donate-btn" id="donateBtn"></button>
+        </div>
+
+        <!-- Recent Donations -->
+        <div class="recent-donations">
+            <h2 class="section-title" id="donorsSectionTitle"></h2>
+            <div class="donation-list" id="donationList"></div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p id="footerAuthor"></p>
+        <p style="margin-top: 10px;" id="footerText"></p>
+        <p class="disclaimer" id="disclaimer"></p>
+    </footer>
+
+    <!-- Toast -->
+    <div class="toast" id="toast">
+        <span class="toast-icon">🎉</span>
+        <span class="toast-message" id="toastMessage">Cảm ơn bạn đã nuôi tôi!</span>
+    </div>
+
+    <!-- Payment Method Modal -->
+    <div class="payment-modal" id="paymentModal">
+        <div class="payment-modal-content">
+            <button class="payment-modal-close" id="paymentModalClose">×</button>
+            <div class="payment-modal-header">
+                <div class="payment-modal-title">Chọn phương thức thanh toán</div>
+                <div class="payment-modal-amount" id="modalAmount"></div>
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Tên của bạn 🦸♂️</label>
+                <input type="text" id="donorName" class="input-field" placeholder="Nhà hảo tâm bí ẩn" maxlength="30">
+            </div>
+
+            <div class="input-group">
+                <label class="input-label">Lời nhắn nhủ 💌</label>
+                <textarea id="donorMessage" class="input-field" placeholder="Ví dụ: Mua ly cà phê nhé! Cố lên..."
+                    maxlength="100"></textarea>
+            </div>
+
+            <div class="payment-modal-options">
+                <div class="payment-modal-option" data-method="momo" id="modalMomoOption">
+                    <div class="payment-modal-option-icon">💜</div>
+                    <div class="payment-modal-option-content">
+                        <div class="payment-modal-option-title">Thanh toán qua MoMo</div>
+                        <div class="payment-modal-option-desc">Chuyển khoản nhanh qua ứng dụng MoMo</div>
+                    </div>
+                </div>
+                <div class="payment-modal-option" data-method="bank" id="modalBankOption">
+                    <div class="payment-modal-option-icon">🏦</div>
+                    <div class="payment-modal-option-content">
+                        <div class="payment-modal-option-title">Chuyển khoản ngân hàng</div>
+                        <div class="payment-modal-option-desc">Chuyển khoản qua tài khoản ngân hàng</div>
+                    </div>
+                </div>
+            </div>
+            <div class="payment-modal-bank-info" id="modalBankInfo">
+                <div id="modalBankInfoContent"></div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ╔════════════════════════════════════════════════════════════════════════════╗
+        // ║                    🎨 CẤU HÌNH CÁ NHÂN HÓA - CHỈNH SỬA Ở ĐÂY!               ║
+        // ║         Chỉ cần thay đổi nội dung trong biến CONFIG bên dưới               ║
+        // ╚════════════════════════════════════════════════════════════════════════════╝
+
+        const CONFIG = {
+            // ═══════════════════════════════════════════════════════════════════
+            // 📌 THÔNG TIN CƠ BẢN
+            // ═══════════════════════════════════════════════════════════════════
+            pageTitle: "Lixi cho tôi",              // Tiêu đề trang (hiển thị trên tab)
+
+            // ═══════════════════════════════════════════════════════════════════
+            // 👤 THÔNG TIN CÁ NHÂN
+            // ═══════════════════════════════════════════════════════════════════
+            avatar: "avatar.png",                         // Avatar (emoji hoặc link ảnh)
+            statusBadge: "",                     // Badge trạng thái bên cạnh avatar
+            authorName: "Đạt",                    // Tên hiển thị ở footer
+            authorLink: "https://www.facebook.com/ngAnhDat13042",                       // Link tới profile (để trống nếu không có)
+
+            // ═══════════════════════════════════════════════════════════════════
+            // 📖 CÂU CHUYỆN CỦA BẠN
+            // ═══════════════════════════════════════════════════════════════════
+            storyTitle: "",
+            storyContent: `
+                <p>Xin chào tôi là Đạt, tôi là một Software Engineer đang học tại trường Harvard Nhổn 🏫. Đang loay hoay với tương lai sắp tới, ngồi code đến 3h sáng (có thể là không), tóc đã thưa, mắt đã cận, lưng đã còng. Mọi sự giúp đỡ của các bạn sẽ giúp tôi</p>
+                <ul style="margin-top: 10px; margin-left: 20px;">
+                    <li>Ăn phở thay mì 🍜</li>
+                    <li>Uống cafe thay trà đá ☕</li>
+                    <li>Mua ChatGPT 🤖</li>
+                    <li>Có tiền đổ xăng 🏍️</li>
+                    <li>Góp quỹ chạy thận 🏥</li>
+                </ul>
+            `,
+
+
+            // ═══════════════════════════════════════════════════════════════════
+            // 💰 CÁC MỨC DONATE
+            // ═══════════════════════════════════════════════════════════════════
+            donationOptions: [
+                {
+                    amount: 20000,
+                    emoji: "🧋",
+                    description: "1 cốc matcha + toppings",
+                    momoLink: "https://me.momo.vn/K2IWuZTPCRfkuAFmuyie/K9b6WNDkL8D9dEv"
+                },
+                {
+                    amount: 35000,
+                    emoji: "🍚",
+                    description: "Suất cơm bụi",
+                    momoLink: "https://me.momo.vn/K2IWuZTPCRfkuAFmuyie/olejYKXy7gwRdjN"
+                },
+                {
+                    amount: 50000,
+                    emoji: "💵",
+                    description: "1 tờ tiền màu đỏ",
+                    momoLink: "https://me.momo.vn/K2IWuZTPCRfkuAFmuyie/YRdGRr1GyJ9JbDz"
+                },
+                {
+                    amount: 69000,
+                    emoji: "🚗",
+                    description: "1 chiếc HotWheels",
+                    momoLink: "https://me.momo.vn/K2IWuZTPCRfkuAFmuyie/y1aK8ygMKWvGbQG",
+                    isDefault: true  // Mức mặc định được chọn sẵn
+                },
+                {
+                    amount: 150000,
+                    emoji: "💎",
+                    description: "1 bữa buffet",
+                    momoLink: "https://me.momo.vn/K2IWuZTPCRfkuAFmuyie/l9avQvnXqMlVeG1"
+                }
+            ],
+
+            // Link MoMo mặc định (khi không tìm thấy amount phù hợp)
+            momoFallback: "https://me.momo.vn/K2IWuZTPCRfkuAFmuyie",
+
+            // ═══════════════════════════════════════════════════════════════════
+            // 🏦 THÔNG TIN TÀI KHOẢN NGÂN HÀNG
+            // ═══════════════════════════════════════════════════════════════════
+            bankAccounts: [
+                {
+                    bankName: "Vietcombank",
+                    accountNumber: "1028696190",
+                    accountHolder: "Nguyễn Anh Đạt",  // Điền tên chủ tài khoản vào đây
+                },
+            ],
+
+            // ═══════════════════════════════════════════════════════════════════
+            // 🎉 DANH SÁCH NGƯỜI ĐÃ DONATE
+            // ═══════════════════════════════════════════════════════════════════
+            // Thêm người donate mới theo format bên dưới
+            // Để mảng rỗng [] nếu chưa có ai donate
+            recentDonations: [
+                // Ví dụ (bỏ comment // để sử dụng):
+                // {
+                //     avatar: "😇",                           // Emoji avatar
+                //     name: "NGUYEN THI QUYNH NHU",            // Tên người donate
+                //     message: "chuyen",  // Lời nhắn
+                //     amount: 22222,                         // Số tiền (không có dấu phẩy)
+                //     time: "2026-01-10 15:19:53"            // Thời gian (YYYY-MM-DD HH:MM:SS)
+                // },
+                // {
+                //     avatar: "😇",                           // Emoji avatar
+                //     name: "NGUYEN THI HUONG",            // Tên người donate
+                //     message: "Chuyen tien 1 ly tra da, khong bi ny da. hehe",  // Lời nhắn
+                //     amount: 10000,                         // Số tiền (không có dấu phẩy)
+                //     time: "2026-01-10 12:38:54"            // Thời gian (YYYY-MM-DD HH:MM:SS)
+                // },
+                // {
+                //     avatar: "😇",                           // Emoji avatar
+                //     name: "Trần Xuân Huy",            // Tên người donate
+                //     message: "Mình chuyển tiền nhé! :)",  // Lời nhắn
+                //     amount: 10000,                         // Số tiền (không có dấu phẩy)
+                //     time: "2026-01-10 12:30:46"            // Thời gian (YYYY-MM-DD HH:MM:SS)
+                // },
+                // {
+                //     avatar: "😇",                           // Emoji avatar
+                //     name: "Phan Thị Kim Ngân",            // Tên người donate
+                //     message: "Ê sao anh làm được cái này hay z :))))",  // Lời nhắn
+                //     amount: 50000,                         // Số tiền (không có dấu phẩy)
+                //     time: "2026-01-10 12:10:27"            // Thời gian (YYYY-MM-DD HH:MM:SS)
+                // },
+                // {
+                //     avatar: "😇",                           // Emoji avatar
+                //     name: "NGUYEN VAN QUANG",            // Tên người donate
+                //     message: "donate",  // Lời nhắn
+                //     amount: 25000,                         // Số tiền (không có dấu phẩy)
+                //     time: "2026-01-10 09:54:35"            // Thời gian (YYYY-MM-DD HH:MM:SS)
+                // },
+            ],
+
+            // ═══════════════════════════════════════════════════════════════════
+            // 📝 FOOTER - PHẦN CUỐI TRANG
+            // ═══════════════════════════════════════════════════════════════════
+            footerText: "Nếu bạn thấy hay, hãy đăng tin IG và tag tôi vào nhé!!!",
+            disclaimer: `
+                ⚠️ Đây là trang web parody/troll.<br>
+                Mọi donate đều được sử dụng để ăn phở và mua cà phê (thật sự), nhưng sao kê thì không có đâu! 🍜 ☕
+            `,
+
+            // ═══════════════════════════════════════════════════════════════════
+            // 🎨 TÙY CHỈNH GIAO DIỆN (Nâng cao - không bắt buộc)
+            // ═══════════════════════════════════════════════════════════════════
+            sectionTitleDonate: "💝 Lixi đi mò 👉👈!",
+            sectionTitleDonors: "🎉 Những người tốt bụng",
+            donateButtonText: "Lixi đi",           // Text nút donate (sẽ thêm số tiền tự động)
+            emptyDonationTitle: "Chưa có ai nuôi tôi...",
+            emptyDonationQuote: '"Một đồng cũng là tình thương, hai đồng cũng là yêu mến" 💝',
+        };
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // ⚠️ KHÔNG CẦN SỬA CODE BÊN DƯỚI (trừ khi bạn biết mình đang làm gì)
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        // ═══════════════════════════════════════════════════════════════════════════
+        // ⚠️ KHÔNG CẦN SỬA CODE BÊN DƯỚI (trừ khi bạn biết mình đang làm gì)
+        // ═══════════════════════════════════════════════════════════════════════════
+
+        // Apply page title
+        document.title = CONFIG.pageTitle;
+
+        // State
+        let selectedAmount = CONFIG.donationOptions?.find(opt => opt.isDefault)?.amount ||
+            (CONFIG.donationOptions && CONFIG.donationOptions.length > 0 ? CONFIG.donationOptions[0].amount : 0);
+
+        // Get MoMo link by amount
+        function getMoMoLink(amount) {
+            const option = CONFIG.donationOptions.find(opt => opt.amount === amount);
+            return option?.momoLink || CONFIG.momoFallback;
+        }
+
+        // Render floating emojis
+        function renderFloatingEmojis() {
+            const container = document.getElementById('floatingEmojisContainer');
+            if (!container || !CONFIG.floatingEmojis) return;
+            container.innerHTML = CONFIG.floatingEmojis.map((emoji, index) => {
+                const left = 10 + (index * 10);
+                const delay = index * 2;
+                return `<div class="floating-emoji" style="left: ${left}%; animation-delay: ${delay}s;">${emoji}</div>`;
+            }).join('');
+        }
+
+        // Render Falling Elements (Clouds & Lixi)
+        function startFallingEffects() {
+            const container = document.body;
+
+            function createFallingElement(type) {
+                const element = document.createElement('div');
+                element.className = 'falling-element';
+
+                if (type === 'yellow-lixi') {
+                    const img = document.createElement('img');
+                    img.src = 'red_envelopes.webp';
+                    img.style.width = (30 + Math.random() * 20) + 'px';
+                    img.style.opacity = '0.8';
+                    element.appendChild(img);
+                } else {
+                    const lixi = document.createElement('div');
+                    lixi.className = 'lixi-icon';
+                    lixi.textContent = '🧧';
+                    element.appendChild(lixi);
+                }
+
+                const startX = Math.random() * 100;
+                const duration = 5 + Math.random() * 10;
+                const drift = (Math.random() - 0.5) * 200;
+                const rotation = (Math.random() - 0.5) * 720;
+
+                element.style.left = `${startX}%`;
+                element.style.animationDuration = `${duration}s`;
+                element.style.setProperty('--drift', `${drift}px`);
+                element.style.setProperty('--rotation', `${rotation}deg`);
+
+                container.appendChild(element);
+
+                setTimeout(() => {
+                    element.remove();
+                }, duration * 1000);
+            }
+
+            // Create yellow-lixi periodically
+            setInterval(() => createFallingElement('yellow-lixi'), 4000);
+
+            // Create lixi periodically
+            setInterval(() => createFallingElement('lixi'), 3000);
+
+            // Initial batch
+            for (let i = 0; i < 5; i++) {
+                setTimeout(() => createFallingElement('yellow-lixi'), Math.random() * 5000);
+                setTimeout(() => createFallingElement('lixi'), Math.random() * 5000);
+            }
+        }
+
+
+        // Render profile
+        function renderProfile() {
+            const avatarContent = document.getElementById('avatarContent');
+            const statusBadge = document.getElementById('statusBadge');
+            const storyTitle = document.getElementById('storyTitle');
+            const storyContent = document.getElementById('storyContent');
+
+            if (avatarContent && CONFIG.avatar) {
+                avatarContent.innerHTML = (CONFIG.avatar.endsWith('.png') || CONFIG.avatar.endsWith('.jpg') || CONFIG.avatar.endsWith('.webp') || CONFIG.avatar.startsWith('http'))
+                    ? `<img src="${CONFIG.avatar}" class="avatar-img" alt="Avatar">`
+                    : CONFIG.avatar;
+            }
+            if (statusBadge && CONFIG.statusBadge) {
+                statusBadge.textContent = CONFIG.statusBadge;
+            }
+            if (storyTitle && CONFIG.storyTitle) {
+                storyTitle.innerHTML = CONFIG.storyTitle;
+            }
+            if (storyContent && CONFIG.storyContent) {
+                storyContent.innerHTML = CONFIG.storyContent;
+            }
+        }
+
+        // Render donation options
+        function renderDonationOptions() {
+            const grid = document.getElementById('donationGrid');
+            if (!grid || !CONFIG.donationOptions || CONFIG.donationOptions.length === 0) return;
+
+            const optionsHtml = CONFIG.donationOptions.map(option => `
+                <div class="donation-card ${option.isDefault ? 'selected' : ''}" data-amount="${option.amount || 0}">
+                    <div class="donation-emoji">${option.emoji || ''}</div>
+                    <div class="donation-amount">${formatCurrency(option.amount || 0)}</div>
+                    <div class="donation-desc">${option.description || ''}</div>
+                </div>
+            `).join('');
+
+            // Add Custom option
+            const customOptionHtml = `
+                <div class="donation-card" id="btnCustomAmount" data-amount="custom">
+                    <div class="donation-emoji">🧧</div>
+                    <div class="donation-amount">Tùy tâm</div>
+                    <div class="donation-desc">Bao nhiêu cũng được, vào đây là vui rồi</div>
+                </div>
+            `;
+
+            grid.innerHTML = optionsHtml + customOptionHtml;
+
+            // Re-attach event listeners
+            document.querySelectorAll('.donation-card').forEach(card => {
+                card.addEventListener('click', () => {
+                    document.querySelectorAll('.donation-card').forEach(c => c.classList.remove('selected'));
+                    card.classList.add('selected');
+
+                    const customContainer = document.getElementById('customAmountContainer');
+                    const customInput = document.getElementById('customAmountInput');
+
+                    if (card.dataset.amount === 'custom') {
+                        if (customContainer) customContainer.style.display = 'block';
+                        if (customInput) customInput.focus();
+                        selectedAmount = 0; // Will be taken from input
+                    } else {
+                        if (customContainer) customContainer.style.display = 'none';
+                        const amount = parseInt(card.dataset.amount, 10);
+                        if (!isNaN(amount)) {
+                            selectedAmount = amount;
+                        }
+                    }
+                    updateButtonText();
+                });
+            });
+
+            // Custom amount input event
+            const customInput = document.getElementById('customAmountInput');
+            if (customInput) {
+                customInput.addEventListener('input', () => {
+                    selectedAmount = parseInt(customInput.value, 10) || 0;
+                    updateButtonText();
+                });
+            }
+        }
+
+        // Render footer
+        function renderFooter() {
+            const footerAuthor = document.getElementById('footerAuthor');
+            const footerText = document.getElementById('footerText');
+            const disclaimer = document.getElementById('disclaimer');
+
+            if (footerAuthor && CONFIG.authorName) {
+                const authorLink = CONFIG.authorLink
+                    ? `<a href="${CONFIG.authorLink}" target="_blank">${CONFIG.authorName}</a>`
+                    : `<a>${CONFIG.authorName}</a>`;
+                footerAuthor.innerHTML = `Made with 💔 by ${authorLink}, shoutout to aTuấn`;
+            }
+            if (footerText && CONFIG.footerText) {
+                footerText.textContent = CONFIG.footerText;
+            }
+            if (disclaimer && CONFIG.disclaimer) {
+                disclaimer.innerHTML = CONFIG.disclaimer;
+            }
+        }
+
+        // Render section titles
+        function renderSectionTitles() {
+            const donateSectionTitle = document.getElementById('donateSectionTitle');
+            const donorsSectionTitle = document.getElementById('donorsSectionTitle');
+
+            if (donateSectionTitle && CONFIG.sectionTitleDonate) {
+                donateSectionTitle.innerHTML = CONFIG.sectionTitleDonate;
+            }
+            if (donorsSectionTitle && CONFIG.sectionTitleDonors) {
+                donorsSectionTitle.innerHTML = CONFIG.sectionTitleDonors;
+            }
+        }
+
+        // Render bank info
+        function renderBankInfo() {
+            const bankInfoContent = document.getElementById('bankInfoContent');
+            if (!bankInfoContent) return;
+
+            if (!CONFIG.bankAccounts || CONFIG.bankAccounts.length === 0) {
+                bankInfoContent.innerHTML = '<p style="text-align: center; color: #636e72;">Chưa có thông tin tài khoản ngân hàng</p>';
+                return;
+            }
+
+            bankInfoContent.innerHTML = CONFIG.bankAccounts.map((account, index) => {
+                if (!account || !account.accountNumber) return '';
+                const bankName = account.bankName || '';
+                const accountNumber = account.accountNumber || '';
+                const accountHolder = account.accountHolder || '';
+                const branch = account.branch || '';
+
+                return `
+                <div class="bank-info-item">
+                    <div class="bank-info-row">
+                        <div class="bank-info-content">
+                            <div class="bank-info-label">Ngân hàng</div>
+                            <div class="bank-info-value">${bankName}${branch ? ` - ${branch}` : ''}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="bank-info-item">
+                    <div class="bank-info-row">
+                        <div class="bank-info-content">
+                            <div class="bank-info-label">Số tài khoản</div>
+                            <div class="bank-info-value" id="accountNumber${index}">${accountNumber}</div>
+                        </div>
+                    </div>
+                    <button class="bank-info-copy-btn" onclick="copyBankInfo('accountNumber${index}', 'Số tài khoản')">
+                        📋 Copy
+                    </button>
+                </div>
+                ${accountHolder ? `
+                <div class="bank-info-item">
+                    <div class="bank-info-row">
+                        <div class="bank-info-content">
+                            <div class="bank-info-label">Chủ tài khoản</div>
+                            <div class="bank-info-value" id="accountHolder${index}">${accountHolder}</div>
+                        </div>
+                    </div>
+                    <button class="bank-info-copy-btn" onclick="copyBankInfo('accountHolder${index}', 'Tên chủ tài khoản')">
+                        📋 Copy
+                    </button>
+                </div>
+                ` : ''}
+                ${index < CONFIG.bankAccounts.length - 1 ? '<div style="height: 20px;"></div>' : ''}
+                `;
+            }).filter(html => html).join('');
+        }
+
+        // Copy bank info to clipboard
+        window.copyBankInfo = function (elementId, label) {
+            const element = document.getElementById(elementId);
+            if (!element) {
+                showToast('Không tìm thấy thông tin để copy', '❌');
+                return;
+            }
+            const text = element.textContent || '';
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast(`Đã copy ${label}! 📋`, '✅');
+                }).catch(() => {
+                    copyToClipboardFallback(text);
+                });
+            } else {
+                copyToClipboardFallback(text);
+            }
+        };
+
+        // Show payment modal
+        function showPaymentModal(amount) {
+            const modal = document.getElementById('paymentModal');
+            const modalAmount = document.getElementById('modalAmount');
+            const modalBankInfo = document.getElementById('modalBankInfo');
+            const inputGroups = document.querySelectorAll('#paymentModal .input-group');
+            const optionsArea = document.querySelector('.payment-modal-options');
+
+            if (!modal || !modalAmount) return;
+
+            modalAmount.textContent = formatCurrency(amount || selectedAmount || 0);
+            modal.classList.add('show');
+            modalBankInfo.classList.remove('show');
+
+            // Show selection elements
+            inputGroups.forEach(g => g.style.display = 'block');
+            if (optionsArea) optionsArea.style.display = 'flex';
+
+            // Reset option states
+            document.querySelectorAll('.payment-modal-option').forEach(opt => {
+                opt.style.borderColor = '#f0f0f0';
+            });
+        }
+
+        // Hide payment modal
+        function hidePaymentModal() {
+            const modal = document.getElementById('paymentModal');
+            if (modal) {
+                modal.classList.remove('show');
+            }
+        }
+
+        // Render bank info in modal
+        function renderModalBankInfo(amount = 0) {
+            const modalBankInfoContent = document.getElementById('modalBankInfoContent');
+            if (!modalBankInfoContent) return;
+
+            if (!CONFIG.bankAccounts || CONFIG.bankAccounts.length === 0) {
+                modalBankInfoContent.innerHTML = '<p style="text-align: center; color: #636e72; padding: 10px;">Chưa có thông tin tài khoản ngân hàng</p>';
+                return;
+            }
+
+            const account = CONFIG.bankAccounts[0];
+            if (!account || !account.accountNumber) {
+                modalBankInfoContent.innerHTML = '<p style="text-align: center; color: #636e72; padding: 10px;">Thông tin tài khoản không hợp lệ</p>';
+                return;
+            }
+
+            const bankName = account.bankName || '';
+            const accountNumber = account.accountNumber || '';
+            const accountHolder = account.accountHolder || '';
+            const branch = account.branch || '';
+
+            modalBankInfoContent.innerHTML = `
+                <div class="card-toolbar" style="margin-bottom: 20px;">
+                    <div class="toolbar-dot dot-red"></div>
+                    <div class="toolbar-dot dot-yellow"></div>
+                    <div class="toolbar-dot dot-green"></div>
+                    <span style="font-size: 0.8rem; font-weight: 700; color: #636e72; margin-left: 10px; font-style: normal;">THÔNG TIN CHUYỂN KHOẢN</span>
+                </div>
+                <div class="qr-container">
+                    <img src="QR.jpg" class="qr-image" alt="QR Code Payment">
+                    <p style="font-size: 0.8rem; color: #636e72; margin-top: 10px;">Quét mã QR để chuyển khoản nhanh</p>
+                </div>
+                <div class="payment-modal-bank-item">
+                    <div style="flex: 1;">
+                        <div class="payment-modal-bank-label">Ngân hàng</div>
+                        <div class="payment-modal-bank-value">${bankName}${branch ? ` - ${branch}` : ''}</div>
+                    </div>
+                </div>
+                <div class="payment-modal-bank-item">
+                    <div style="flex: 1;">
+                        <div class="payment-modal-bank-label">Số tài khoản</div>
+                        <div class="payment-modal-bank-value" id="modalAccountNumber">${accountNumber}</div>
+                    </div>
+                    <button class="payment-modal-bank-copy" onclick="copyBankInfo('modalAccountNumber', 'Số tài khoản')">
+                        📋 Copy
+                    </button>
+                </div>
+                ${accountHolder ? `
+                <div class="payment-modal-bank-item">
+                    <div style="flex: 1;">
+                        <div class="payment-modal-bank-label">Chủ tài khoản</div>
+                        <div class="payment-modal-bank-value" id="modalAccountHolder">${accountHolder}</div>
+                    </div>
+                    <button class="payment-modal-bank-copy" onclick="copyBankInfo('modalAccountHolder', 'Tên chủ tài khoản')">
+                        📋 Copy
+                    </button>
+                </div>
+                ` : ''}
+                <div style="margin-top: 10px; text-align: center;">
+                    <button class="lixi-btn" style="width: 100%; padding: 10px;" onclick="copyAllBankInfo(${amount})">
+                        📋 Copy tất cả thông tin
+                    </button>
+                </div>
+            `;
+        }
+
+        // Copy all bank info function
+        window.copyAllBankInfo = function (amount = 0) {
+            if (!CONFIG.bankAccounts || CONFIG.bankAccounts.length === 0) {
+                showToast('Chưa có thông tin tài khoản ngân hàng', '❌');
+                return;
+            }
+
+            const account = CONFIG.bankAccounts[0];
+            if (!account || !account.accountNumber) {
+                showToast('Thông tin tài khoản không hợp lệ', '❌');
+                return;
+            }
+
+            let bankInfo = `Ngân hàng: ${account.bankName || ''}${account.branch ? ` - ${account.branch}` : ''}\nSố tài khoản: ${account.accountNumber}`;
+            if (account.accountHolder) {
+                bankInfo += `\nChủ tài khoản: ${account.accountHolder}`;
+            }
+            bankInfo += `\nSố tiền: ${formatCurrency(amount || selectedAmount || 0)}`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(bankInfo).then(() => {
+                    showToast('Đã copy tất cả thông tin tài khoản! 📋', '✅');
+                }).catch(() => {
+                    copyToClipboardFallback(bankInfo);
+                });
+            } else {
+                copyToClipboardFallback(bankInfo);
+            }
+        };
+
+        // DOM Elements
+        const donateBtn = document.getElementById('donateBtn');
+        const toast = document.getElementById('toast');
+        const toastMessage = document.getElementById('toastMessage');
+        const donationList = document.getElementById('donationList');
+
+        // Convert timestamp to relative time
+        function timeAgo(dateTimeString) {
+            if (!dateTimeString) return '';
+            try {
+                const now = new Date();
+                const past = new Date(dateTimeString);
+                if (isNaN(past.getTime())) return '';
+
+                const diffMs = now - past;
+                if (diffMs < 0) return 'Vừa xong';
+
+                const diffSec = Math.floor(diffMs / 1000);
+                const diffMin = Math.floor(diffSec / 60);
+                const diffHour = Math.floor(diffMin / 60);
+                const diffDay = Math.floor(diffHour / 24);
+                const diffWeek = Math.floor(diffDay / 7);
+                const diffMonth = Math.floor(diffDay / 30);
+                const diffYear = Math.floor(diffDay / 365);
+
+                if (diffYear > 0) return `${diffYear} năm trước`;
+                if (diffMonth > 0) return `${diffMonth} tháng trước`;
+                if (diffWeek > 0) return `${diffWeek} tuần trước`;
+                if (diffDay > 0) return `${diffDay} ngày trước`;
+                if (diffHour > 0) return `${diffHour} giờ trước`;
+                if (diffMin > 0) return `${diffMin} phút trước`;
+                if (diffSec > 0) return `${diffSec} giây trước`;
+                return 'Vừa xong';
+            } catch (e) {
+                return '';
+            }
+        }
+
+        // Render donation list
+        function renderDonationList() {
+            if (!donationList) return;
+
+            // Nếu danh sách rỗng, hiển thị nội dung hook donate
+            if (!CONFIG.recentDonations || CONFIG.recentDonations.length === 0) {
+                const emptyTitle = CONFIG.emptyDonationTitle || 'Chưa có ai nuôi tôi...';
+                const emptyQuote = CONFIG.emptyDonationQuote || '"Một đồng cũng là tình thương, hai đồng cũng là yêu mến" 💝';
+                donationList.innerHTML = `
+                    <div class="empty-donation-state" style="text-align: center; padding: 20px;">
+                        <div style="font-size: 4rem; margin-bottom: 20px; animation: bounce 2s infinite;">😢</div>
+                        <h3 style="font-size: 1.5rem; color: var(--dark); margin-bottom: 15px;">${emptyTitle}</h3>
+                        <p style="font-style: italic; color: #b2bec3; font-size: 0.9rem;">
+                            ${emptyQuote}
+                        </p>
+                    </div>
+                `;
+                return;
+            }
+
+            donationList.innerHTML = CONFIG.recentDonations.map(donation => `
+                <div class="donation-item">
+                    <div class="donor-avatar">${donation.avatar || '😊'}</div>
+                    <div class="donor-info">
+                        <div class="donor-name">${donation.name || 'Anonymous'}</div>
+                        <div class="donor-message">"${donation.message || ''}"</div>
+                    </div>
+                    <div>
+                        <div class="donor-amount">${formatCurrency(donation.amount || 0)}</div>
+                        <div class="donor-time">${donation.time ? timeAgo(donation.time) : ''}</div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Update button text
+        function updateButtonText() {
+            if (!donateBtn) return;
+            const buttonText = CONFIG.donateButtonText || 'Nuôi Tôi';
+            donateBtn.innerHTML = `${buttonText} ${formatCurrency(selectedAmount || 0)}!`;
+        }
+
+        // Format currency
+        function formatCurrency(amount) {
+            const numAmount = Number(amount);
+            if (isNaN(numAmount) || numAmount < 0) {
+                return '0 VNĐ';
+            }
+            try {
+                return new Intl.NumberFormat('vi-VN').format(numAmount) + ' VNĐ';
+            } catch (e) {
+                return numAmount.toLocaleString('vi-VN') + ' VNĐ';
+            }
+        }
+
+        // Show toast
+        function showToast(message, emoji = '🎉') {
+            if (!toast || !toastMessage) return;
+            toastMessage.textContent = message;
+            const toastIcon = document.querySelector('.toast-icon');
+            if (toastIcon) {
+                toastIcon.textContent = emoji;
+            }
+            toast.classList.add('show');
+            setTimeout(() => {
+                if (toast) {
+                    toast.classList.remove('show');
+                }
+            }, 3000);
+        }
+
+        // Initialize all dynamic content
+        function init() {
+            try {
+                renderFloatingEmojis();
+                startFallingEffects();
+                renderProfile();
+                renderDonationOptions();
+                renderDonationList();
+                renderFooter();
+                renderSectionTitles();
+                updateButtonText();
+
+                // Modal event listeners
+                const paymentModal = document.getElementById('paymentModal');
+                const paymentModalClose = document.getElementById('paymentModalClose');
+                const modalMomoOption = document.getElementById('modalMomoOption');
+                const modalBankOption = document.getElementById('modalBankOption');
+
+                // Close modal button
+                if (paymentModalClose) {
+                    paymentModalClose.addEventListener('click', () => {
+                        hidePaymentModal();
+                    });
+                }
+
+                // Close modal when clicking outside
+                if (paymentModal) {
+                    paymentModal.addEventListener('click', (e) => {
+                        if (e.target === paymentModal) {
+                            hidePaymentModal();
+                        }
+                    });
+                }
+
+                // MoMo option click
+                if (modalMomoOption) {
+                    modalMomoOption.addEventListener('click', () => {
+                        const modalAmount = document.getElementById('modalAmount');
+                        const amountText = modalAmount ? modalAmount.textContent : '';
+                        // Extract amount from text (remove "VNĐ" and parse)
+                        const amount = selectedAmount || 0;
+                        modalMomoOption.style.borderColor = 'var(--primary)';
+                        setTimeout(() => {
+                            handlePaymentMethod('momo', amount);
+                        }, 200);
+                    });
+                }
+
+                // Bank option click
+                if (modalBankOption) {
+                    modalBankOption.addEventListener('click', () => {
+                        const modalAmount = document.getElementById('modalAmount');
+                        const amountText = modalAmount ? modalAmount.textContent : '';
+                        // Extract amount from text (remove "VNĐ" and parse)
+                        const amount = selectedAmount || 0;
+                        modalBankOption.style.borderColor = 'var(--primary)';
+                        handlePaymentMethod('bank', amount);
+                    });
+                }
+            } catch (error) {
+                console.error('Error initializing app:', error);
+            }
+        }
+
+        // Run initialization
+        init();
+
+        // Donate button click - show payment modal
+        if (donateBtn) {
+            donateBtn.addEventListener('click', () => {
+                if (!selectedAmount || selectedAmount < 1000) {
+                    showToast('Vui lòng chọn hoặc nhập số tiền từ 1.000 VNĐ 🧧', '⚠️');
+                    const customInput = document.getElementById('customAmountInput');
+                    if (customInput && document.getElementById('btnCustomAmount').classList.contains('selected')) {
+                        customInput.focus();
+                    }
+                    return;
+                }
+                showPaymentModal(selectedAmount);
+            });
+        }
+
+        // Handle payment method selection in modal
+        function handlePaymentMethod(method, amount) {
+            // Get user input
+            const nameInput = document.getElementById('donorName');
+            const messageInput = document.getElementById('donorMessage');
+
+            const name = nameInput && nameInput.value.trim() ? nameInput.value.trim() : "Nhà hảo tâm";
+            const message = messageInput && messageInput.value.trim() ? messageInput.value.trim() : "Đã nuôi bạn!";
+
+            // Add to recent donations (Fake it for UI feedback)
+            const newDonation = {
+                avatar: "😺", // Default avatar for new donors
+                name: name,
+                message: message,
+                amount: amount || selectedAmount || 0,
+                time: new Date().toISOString()
+            };
+
+            // Add to beginning of list
+            if (CONFIG.recentDonations) {
+                CONFIG.recentDonations.unshift(newDonation);
+                renderDonationList(); // Re-render list
+            }
+
+            if (method === 'bank') {
+                // Show bank info in modal and hide selection
+                const modalBankInfo = document.getElementById('modalBankInfo');
+                const inputGroups = document.querySelectorAll('#paymentModal .input-group');
+                const optionsArea = document.querySelector('.payment-modal-options');
+
+                if (modalBankInfo) {
+                    renderModalBankInfo(amount || selectedAmount || 0);
+                    modalBankInfo.classList.add('show');
+
+                    // Hide selection elements to save space
+                    inputGroups.forEach(g => g.style.display = 'none');
+                    if (optionsArea) optionsArea.style.display = 'none';
+                }
+            } else if (method === 'momo') {
+                // MoMo payment
+                const momoLink = getMoMoLink(amount || selectedAmount);
+                if (momoLink) {
+                    showToast(`Cảm ơn ${name}! Đang mở MoMo... 💜`, '📱');
+                    const newWindow = window.open(momoLink, '_blank');
+                    if (!newWindow) {
+                        showToast('Popup bị chặn, vui lòng cho phép popup', '⚠️');
+                    } else {
+                        setTimeout(() => hidePaymentModal(), 1000);
+                    }
+                } else {
+                    showToast('Không tìm thấy link thanh toán', '❌');
+                }
+            }
+        }
+
+        // Fallback copy function
+        function copyToClipboardFallback(text) {
+            const textArea = document.createElement('textarea');
+            textArea.value = text;
+            textArea.style.position = 'fixed';
+            textArea.style.opacity = '0';
+            textArea.style.left = '-9999px';
+            document.body.appendChild(textArea);
+            textArea.focus();
+            textArea.select();
+            try {
+                const successful = document.execCommand('copy');
+                if (successful) {
+                    showToast('Đã copy thông tin tài khoản! 📋', '✅');
+                } else {
+                    showToast('Vui lòng copy thông tin thủ công', '❌');
+                }
+            } catch (err) {
+                showToast('Vui lòng copy thông tin thủ công', '❌');
+            }
+            document.body.removeChild(textArea);
+        }
+
+        // Easter egg: Konami code
+        let konamiCode = [];
+        const konamiSequence = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+
+        document.addEventListener('keydown', (e) => {
+            konamiCode.push(e.key);
+            konamiCode = konamiCode.slice(-10);
+
+            if (konamiCode.join(',') === konamiSequence.join(',')) {
+                document.body.style.animation = 'rainbow 1s infinite';
+                showToast('🌈 RAINBOW MODE ACTIVATED! 🌈', '🎮');
+
+                // Add rainbow animation
+                const style = document.createElement('style');
+                style.textContent = `
+                    @keyframes rainbow {
+                        0% { filter: hue-rotate(0deg); }
+                        100% { filter: hue-rotate(360deg); }
+                    }
+                `;
+                document.head.appendChild(style);
+            }
+        });
+    </script>
+</body>
+
+</html>
