@@ -152,7 +152,7 @@
             flex-direction: column;
             align-items: center;
             gap: 20px;
-            margin-top: 30px;
+            margin-top: 10px;
             /* Space for lanterns/flowers */
         }
 
@@ -879,10 +879,22 @@
 
             .donation-card {
                 padding: 15px;
+                background: rgba(0, 0, 0, 0.4);
+                /* Darker background for better contrast on mobile */
+                border-color: rgba(255, 215, 0, 0.5);
             }
 
             .donation-amount {
                 font-size: 1.2rem;
+                color: #fff;
+                /* White for better readability */
+                text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.8);
+            }
+
+            .donation-desc {
+                color: rgba(255, 255, 255, 0.9);
+                /* Lighter for contrast */
+                font-weight: 500;
             }
 
             .donate-btn {
@@ -1131,6 +1143,10 @@
             padding: 25px;
             max-width: 450px;
             width: 95%;
+            max-height: 90vh;
+            /* Prevent overflow on mobile */
+            overflow-y: auto;
+            /* Scrollable content */
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             animation: slideUp 0.3s ease;
             position: relative;
@@ -1309,11 +1325,13 @@
 
         @media (max-width: 600px) {
             .payment-modal-content {
-                padding: 30px 20px;
+                padding: 20px 15px;
+                /* Reduced padding on mobile */
+                border-radius: 20px;
             }
 
             .payment-modal-title {
-                font-size: 1.5rem;
+                font-size: 1.4rem;
             }
 
             .payment-modal-option {
@@ -1523,11 +1541,13 @@
             storyContent: `
                 <p>Xin chào tôi là Đạt, tôi là một Software Engineer đang học tại trường Harvard Nhổn 🏫. Đang loay hoay với tương lai sắp tới, ngồi code đến 3h sáng (có thể là không), tóc đã thưa, mắt đã cận, lưng đã còng. Mọi sự giúp đỡ của các bạn sẽ giúp tôi</p>
                 <ul style="margin-top: 10px; margin-left: 20px;">
-                    <li>Ăn phở thay mì 🍜</li>
-                    <li>Uống cafe thay trà đá ☕</li>
-                    <li>Mua ChatGPT 🤖</li>
+                    <li>Một cốc trà thái 🧋</li>
+                    <li>Ăn cơm thay mì 🍜</li>
                     <li>Có tiền đổ xăng 🏍️</li>
+                    <li>Đi săn HotWheels 🚗</li>
+                    <li>Đi ăn Dookki 🍔</li>
                     <li>Góp quỹ chạy thận 🏥</li>
+                    
                 </ul>
             `,
 
@@ -1551,7 +1571,7 @@
                 {
                     amount: 50000,
                     emoji: "💵",
-                    description: "1 tờ tiền màu đỏ",
+                    description: "1 bình xăng cho chiến mã ",
                     momoLink: "https://me.momo.vn/K2IWuZTPCRfkuAFmuyie/YRdGRr1GyJ9JbDz"
                 },
                 {
